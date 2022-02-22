@@ -1,4 +1,4 @@
-# Memeory Game - A React Web App  
+# Memory Game - A React Web App  
 
 Description  
 
