@@ -1,4 +1,5 @@
-# The Classic Memory Game - A React Single Page Web App (SPA)  
+# The Classic Memory Game
+## A React Single Page Web App (SPA)  
 
 A game where users try to find matching cards.  
 
