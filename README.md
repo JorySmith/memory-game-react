@@ -1,4 +1,4 @@
-# The Classic Memory Game - A React Web App  
+# The Classic Memory Game - A React Single Page Web App  
 
 A game where users try to find matching cards.  
 
