@@ -1,7 +1,12 @@
-# Memory Game - A React Web App  
+# The Classic Memory Game - A React Web App  
 
-Description  
+A game where users try to find matching cards.  
 
 ## Live Demo  
 
 Link  
+
+## Features  
+
+- React hooks: useState(), useEffect()  
+- Dynamic tag attributes  

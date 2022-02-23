@@ -1,15 +1,18 @@
 import './SingleCard.css'
 
-const SingleCard = ({ card, handleChoice }) => {
+const SingleCard = ({ card, handleChoice, flipped, disabled }) => {
 
     // Don't set and track choice state here, do it in App.js 
     const handleClick = () => {
-        handleChoice(card)
+        if (!disabled) {
+            handleChoice(card)
+        }
+        
     }    
 
     return (    
         <div className="card">
-            <div>
+            <div className={flipped ? "flipped" : ""}>
                 <img 
                     className="front" 
                     src={card.src} 

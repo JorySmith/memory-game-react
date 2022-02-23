@@ -19,6 +19,7 @@ function App() {
   const [turns, setTurns] = useState(0)
   const [choiceOne, setChoiceOne] = useState(null)
   const [choiceTwo, setChoiceTwo] = useState(null)
+  const [disabled, setDisabled] = useState(false)
   
   // Shuffle cards and assign a unique id to each card
   // Track state of cards and user turns
@@ -27,8 +28,11 @@ function App() {
       .sort(() => Math.random() - .5)
       .map((card) => ({...card, id: Math.random()})) // add to each card object an uid
 
+      setChoiceOne(null)
+      setChoiceTwo(null)
       setCards(shuffledCards)
       setTurns(0)
+
   }
 
   // Handle a card choice
@@ -43,8 +47,9 @@ function App() {
 
   // useEffect to track updates to choiceOne and Two
   // useEffect runs when component mounts, then again if any dependencies change
-  useEffect(() => {
+  useEffect(() => {    
     if (choiceOne && choiceTwo) {
+      setDisabled(true)
       if (choiceOne.src === choiceTwo.src) {
         // Return matched cards 'matched' property changed to true
         // Update previous card state
@@ -59,23 +64,30 @@ function App() {
         })
         resetTurn()
       } else {
-        resetTurn()
+        setTimeout(() => {
+          resetTurn()
+        }, 1000)
+        
       }            
     }
-  }, [choiceOne, choiceTwo])
-  
-  console.log(cards)
+  }, [choiceOne, choiceTwo])  
 
-  // After choosing 2 cards, reset cards and increment turns by using prevTurns values
+  // After choosing 2 cards, reset cards and increment prevTurns value
   const resetTurn = () => {
     setChoiceOne(null)
     setChoiceTwo(null)
-    setTurns(prevTurns => prevTurns++)
+    setTurns(prevTurns => prevTurns + 1)
+    setDisabled(false)
   }
+
+  // Start a fresh new game on initial page load
+  useEffect(() => {
+    shuffleCards()
+  }, [])
 
   return (
     <div className='App'>
-      <h1>Memory Game</h1>
+      <h1>Classic Memory Game</h1>
       <button onClick={shuffleCards}>New Game</button>
 
       {/* When mapping and returning HTML tags, each item needs a unique key */}
@@ -84,9 +96,12 @@ function App() {
           <SingleCard 
             key={card.id} 
             card={card}
-            handleChoice={handleChoice} />
+            handleChoice={handleChoice}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled} />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
